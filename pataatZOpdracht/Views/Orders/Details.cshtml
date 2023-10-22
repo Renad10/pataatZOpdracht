@@ -1,0 +1,72 @@
+﻿@model pataatZOpdracht.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutCustomer";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order details</title>
+
+    <link href="~/css/cartStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <h2 style="text-align: center">Order Id: @Model.Id</h2>
+    
+    @{
+        DateTime createdAt = DateTime.Parse(Model.CreatedAt.ToString());
+    }
+    <h2 style="text-align:center">Order date: @createdAt.ToString("dd-MM-yyyy")</h2>
+    <table class="table table-striped">
+        <thead>            
+            <tr>
+                <th>
+                    Product name
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderItem in Model.OrderItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => orderItem.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => orderItem.Quantity) 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => orderItem.Price) €
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>Total</td>
+                @{
+                    decimal total = 0;
+                    foreach (var orderItem in Model.OrderItems)
+                    {
+                        decimal price = decimal.Parse(orderItem.Price.ToString());
+                        decimal quantity = decimal.Parse(orderItem.Quantity.ToString());
+                        total += price * quantity;
+                    }
+                }
+                <td>@total</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

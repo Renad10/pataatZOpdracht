@@ -1,0 +1,64 @@
+﻿@model IEnumerable<pataatZOpdracht.Models.Product>
+@{
+    
+
+    Layout = "_LayoutCustomer";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link href="~/css/Home.css" rel="stylesheet" />
+
+</head>
+<body class="page">
+    <h1>Home</h1>
+    <section id="hero">
+        <div class="hero container">
+            <div>
+                <h1>Hello @ViewData["userName"] <span></span></h1>
+                <h1>Welcome back <span></span></h1>
+                <h1>Patat Zaak <span></span></h1>
+            </div>
+        </div>
+    </section>
+    <div>
+        <h2>Products with discount for this week</h2>
+        @foreach (var item in Model)
+        {
+            <div class="product-card">
+                <img src="~/images/@item.Image" class="product-image" />
+                <h3>@item.Name</h3>
+                <p>@item.Description</p>
+
+                @{
+                    // decimal priceWithDiscount = 0;
+                    if (item.Discount != null)
+                    {
+                        decimal priceAfterDiscount = item.DiscountCalculate();
+                        <h3 style="text-decoration:line-through">@item.Price</h3>
+                        <h3 style="color:red">@priceAfterDiscount</h3>
+                    }
+                    else
+                    {
+                        <h3>@item.Price</h3>
+                    }
+                }
+
+                @{
+                    int productId = item.Id;
+                }
+
+                <form asp-controller="Carts" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@item.Id" />
+                    <button type="submit" class="btn btn-outline-dark">Add to cart <i class="fa-solid fa-plus"></i></button>
+                </form>
+            </div>
+        }
+    </div>
+                            
+        
+</body>
+</html>

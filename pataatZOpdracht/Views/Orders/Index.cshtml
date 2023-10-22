@@ -1,0 +1,38 @@
+﻿@model IEnumerable<pataatZOpdracht.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    
+    Layout = "_LayoutCustomer";
+}
+
+<h1>My orders</h1>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Order Id
+            </th>
+            <th>
+                Order date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

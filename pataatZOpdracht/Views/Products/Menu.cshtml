@@ -1,0 +1,83 @@
+﻿@model IEnumerable<pataatZOpdracht.Models.Product>
+
+@{
+    ViewData["Title"] = "Menu";
+    
+    Layout = "_LayoutCustomer";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+	<link href="~/css/menuStyle.css" rel="stylesheet" />
+
+</head>
+<body class="page">
+    <h1>Menu</h1>
+    <div class="sidebar">
+        <ul>
+            @foreach (var name in ViewData["categoriesNames"] as List<string>)
+            {
+                <li><a href="#@name">@name</a></li>
+            }
+        </ul>
+    </div>
+
+
+    @foreach (var name in ViewData["categoriesNames"] as List<string>)
+    {
+       
+        var numberOfProducts = 0;
+        foreach(var product in Model)
+        {
+            if(product.Category.Name == name)
+            {
+                numberOfProducts++;
+            }
+        }
+
+
+        <h1 class="category_name">@name (@numberOfProducts)</h1>
+        <div class="product-container" id="@name">
+        
+            @foreach (var item in Model)
+                if (item.Category.Name == name)
+                {
+                    
+                    <div class="product-card">
+                        <img src="~/images/@item.Image" class="product-image" />
+                        <h3>@item.Name</h3>
+                        <p>@item.Description</p>
+
+                        @{
+                            // decimal priceWithDiscount = 0;
+                            if (item.Discount != null)
+                            {
+                                decimal priceAfterDiscount = item.DiscountCalculate();
+                                <h3 style="text-decoration:line-through">@item.Price</h3>
+                                <h3 style="color:red">@priceAfterDiscount</h3>
+                            }
+                            else
+                            {
+                                <h3>@item.Price</h3>
+                            }
+                        }
+
+                        @{int productId = item.Id;}
+                        <form asp-controller="Carts" asp-action="AddToCart" method="post">
+                            <input type="hidden" name="productId" value="@item.Id" />
+                            <button type="submit" class="btn btn-outline-dark">Add to cart <i class="fa-solid fa-plus"></i></button>
+                        </form>
+                    </div>
+                }
+        </div>
+        <br />
+    }
+    
+</body>
+</html>
+
+
+
+

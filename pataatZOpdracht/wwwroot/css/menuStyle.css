@@ -1,0 +1,120 @@
+
+.sidebar {
+    position: fixed;
+    width: 200px;
+    height: 75%;
+    background-color: #FF4500;  
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    color: #333;
+    z-index: 1000;
+    border-radius: 10px;
+    
+}
+.sidebar ul {
+        list-style: none;
+        padding: 0;
+        
+    }
+.sidebar ul li {
+            margin: 20px 20px;
+       
+        }
+.sidebar a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+.sidebar a:hover {
+            text-decoration: underline;
+        }
+
+
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 220px;
+    transition: margin-left 0.3s;
+}
+
+.product-card {
+    border: 1px solid #e1e1e1;
+    margin: 10px;
+    padding: 20px;
+    width: calc(33.33% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #FF4500;
+    max-height: 150px;
+}
+
+
+.product-details {
+    margin-top: 10px;
+}
+
+.product-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product-description {
+    margin-top: 10px;
+    color: #666;
+}
+
+.product-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.btn-outline-dark {
+    display: block;
+    margin-top: 10px;
+    background-color: #FF4500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-outlien-dark:hover {
+    background-color: #0056b3;
+}
+h1{
+    text-align:center;
+}
+.category-name {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 10px;
+        box-shadow: none;
+    }
+
+    .product-container {
+        margin-left: 0;
+    }
+}
+
